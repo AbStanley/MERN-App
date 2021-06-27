@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon API Demo</title>
+
+    <script src='pokemonAPI.js'></script>
+    <script src='index.js' defer></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 0 0.5rem;
+        }
+
+        form {
+            margin: 1rem 0;
+        }
+
+        span.typeCheckboxSpan {
+            display: inline-block;
+            margin-right: 1rem;
+            width: 5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pokémon RESTful Web API Demo</h1>
+
+    <div id='resultsDiv'></div>
+
+    <form id='getAllForm'>
+        <input type='submit' id='getAllBtn' value='Get All Pokémon'>
+    </form>
+
+    <form id='getByIdForm'>
+        <h2>Get by ID</h2>
+        <label for='idToGet'>ID:</label>
+        <input type='number' id='idToGet' min=1 value=1>
+        <input type='submit' id='getByIdBtn' value='Get Pokémon by ID'>
+    </form>
+
+    <form id='getByQueryForm'>
+        <h2>Get by Query</h2>
+        <div class='fieldDiv'>
+            <label for='nameToGet'>Name:</label>
+            <input type='text' id='nameToGet'>
+        </div>
+        <div class='fieldDiv'>
+            <label for='heightToGet'>Height:</label>
+            <input type='number' id='heightToGet' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label for='weightToGet'>Weight:</label>
+            <input type='number' id='weightToGet' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label>Type:</label>
+            <div class='typeCheckboxDiv' id='queryTypeCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalTypeGet' name='Normal'>
+                    <label for='normalTypeGet'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireTypeGet' name='Fire'>
+                    <label for='fireTypeGet'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterTypeGet' name='Water'>
+                    <label for='waterTypeGet'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassTypeGet' name='Grass'>
+                    <label for='grassTypeGet'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricTypeGet' name='Electric'>
+                    <label for='electricTypeGet'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceTypeGet' name='Ice'>
+                    <label for='iceTypeGet'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingTypeGet' name='Fighting'>
+                    <label for='fightingTypeGet'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonTypeGet' name='Poison'>
+                    <label for='poisonTypeGet'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundTypeGet' name='Ground'>
+                    <label for='groundTypeGet'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingTypeGet' name='Flying'>
+                    <label for='flyingTypeGet'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicTypeGet' name='psychic'>
+                    <label for='psychicTypeGet'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugTypeGet' name='Bug'>
+                    <label for='bugTypeGet'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockTypeGet' name='Rock'>
+                    <label for='rockTypeGet'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostTypeGet' name='Ghost'>
+                    <label for='ghostTypeGet'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkTypeGet' name='Dark'>
+                    <label for='darkTypeGet'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonTypeGet' name='Dragon'>
+                    <label for='dragonTypeGet'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelTypeGet' name='Steel'>
+                    <label for='steelTypeGet'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyTypeGet' name='Fairy'>
+                    <label for='fairyTypeGet'>Fairy</label>
+                </span>
+            </div>
+        </div>
+        <div class='fieldDiv'>
+            <label>Weakness:</label>
+            <div class='typeCheckboxDiv' id='queryWeaknessCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalWeaknessGet' name='Normal'>
+                    <label for='normalWeaknessGet'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireWeaknessGet' name='Fire'>
+                    <label for='fireWeaknessGet'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterWeaknessGet' name='Water'>
+                    <label for='waterWeaknessGet'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassWeaknessGet' name='Grass'>
+                    <label for='grassWeaknessGet'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricWeaknessGet' name='Electric'>
+                    <label for='electricWeaknessGet'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceWeaknessGet' name='Ice'>
+                    <label for='iceWeaknessGet'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingWeaknessGet' name='Fighting'>
+                    <label for='fightingWeaknessGet'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonWeaknessGet' name='Poison'>
+                    <label for='poisonWeaknessGet'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundWeaknessGet' name='Ground'>
+                    <label for='groundWeaknessGet'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingWeaknessGet' name='Flying'>
+                    <label for='flyingWeaknessGet'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicWeaknessGet' name='psychic'>
+                    <label for='psychicWeaknessGet'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugWeaknessGet' name='Bug'>
+                    <label for='bugWeaknessGet'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockWeaknessGet' name='Rock'>
+                    <label for='rockWeaknessGet'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostWeaknessGet' name='Ghost'>
+                    <label for='ghostWeaknessGet'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkWeaknessGet' name='Dark'>
+                    <label for='darkWeaknessGet'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonWeaknessGet' name='Dragon'>
+                    <label for='dragonWeaknessGet'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelWeaknessGet' name='Steel'>
+                    <label for='steelWeaknessGet'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyWeaknessGet' name='Fairy'>
+                    <label for='fairyWeaknessGet'>Fairy</label>
+                </span>
+            </div>
+        <input type='submit' id='getByQueryBtn' value='Get Pokémon by Query'>
+    </form>
+    <form id='addNewPokemonForm'>
+        <h2>Add New Pokémon</h2>
+        <div class='fieldDiv'>
+            <label for='idToAdd'>ID:</label>
+            <input type='number' id='idToAdd' min=1 value=1>
+        </div>
+        <div class='fieldDiv'>
+            <label for='nameToAdd'>Name:</label>
+            <input type='text' id='nameToAdd'>
+        </div>
+        <div class='fieldDiv'>
+            <label for='heightToAdd'>Height:</label>
+            <input type='number' id='heightToAdd' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label for='weightToAdd'>Weight:</label>
+            <input type='number' id='weightToAdd' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label>Type:</label>
+            <div class='typeCheckboxDiv' id='addTypeCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalTypeAdd' name='Normal'>
+                    <label for='normalTypeAdd'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireTypeAdd' name='Fire'>
+                    <label for='fireTypeAdd'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterTypeAdd' name='Water'>
+                    <label for='waterTypeAdd'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassTypeAdd' name='Grass'>
+                    <label for='grassTypeAdd'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricTypeAdd' name='Electric'>
+                    <label for='electricTypeAdd'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceTypeAdd' name='Ice'>
+                    <label for='iceTypeAdd'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingTypeAdd' name='Fighting'>
+                    <label for='fightingTypeAdd'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonTypeAdd' name='Poison'>
+                    <label for='poisonTypeAdd'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundTypeAdd' name='Ground'>
+                    <label for='groundTypeAdd'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingTypeAdd' name='Flying'>
+                    <label for='flyingTypeAdd'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicTypeAdd' name='psychic'>
+                    <label for='psychicTypeAdd'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugTypeAdd' name='Bug'>
+                    <label for='bugTypeAdd'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockTypeAdd' name='Rock'>
+                    <label for='rockTypeAdd'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostTypeAdd' name='Ghost'>
+                    <label for='ghostTypeAdd'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkTypeAdd' name='Dark'>
+                    <label for='darkTypeAdd'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonTypeAdd' name='Dragon'>
+                    <label for='dragonTypeAdd'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelTypeAdd' name='Steel'>
+                    <label for='steelTypeAdd'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyTypeAdd' name='Fairy'>
+                    <label for='fairyTypeAdd'>Fairy</label>
+                </span>
+            </div>
+        </div>
+        <div class='fieldDiv'>
+            <label>Weakness:</label>
+            <div class='typeCheckboxDiv' id='addWeaknessCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalWeaknessAdd' name='Normal'>
+                    <label for='normalWeaknessAdd'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireWeaknessAdd' name='Fire'>
+                    <label for='fireWeaknessAdd'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterWeaknessAdd' name='Water'>
+                    <label for='waterWeaknessAdd'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassWeaknessAdd' name='Grass'>
+                    <label for='grassWeaknessAdd'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricWeaknessAdd' name='Electric'>
+                    <label for='electricWeaknessAdd'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceWeaknessAdd' name='Ice'>
+                    <label for='iceWeaknessAdd'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingWeaknessAdd' name='Fighting'>
+                    <label for='fightingWeaknessAdd'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonWeaknessAdd' name='Poison'>
+                    <label for='poisonWeaknessAdd'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundWeaknessAdd' name='Ground'>
+                    <label for='groundWeaknessAdd'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingWeaknessAdd' name='Flying'>
+                    <label for='flyingWeaknessAdd'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicWeaknessAdd' name='psychic'>
+                    <label for='psychicWeaknessAdd'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugWeaknessAdd' name='Bug'>
+                    <label for='bugWeaknessAdd'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockWeaknessAdd' name='Rock'>
+                    <label for='rockWeaknessAdd'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostWeaknessAdd' name='Ghost'>
+                    <label for='ghostWeaknessAdd'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkWeaknessAdd' name='Dark'>
+                    <label for='darkWeaknessAdd'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonWeaknessAdd' name='Dragon'>
+                    <label for='dragonWeaknessAdd'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelWeaknessAdd' name='Steel'>
+                    <label for='steelWeaknessAdd'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyWeaknessAdd' name='Fairy'>
+                    <label for='fairyWeaknessAdd'>Fairy</label>
+                </span>
+            </div>
+        </div>
+        <input type='submit' id='addNewPokemonBtn' value='Add Pokémon'>
+    </form>
+    <form id='updatePokemonForm'>
+        <h2>Update Pokémon</h2>
+        <div class='fieldDiv'>
+            <label for='idToUpdate'>ID:</label>
+            <input type='number' id='idToUpdate' min=1 value=1>
+        </div>
+        <div class='fieldDiv'>
+            <label for='nameToUpdate'>Name:</label>
+            <input type='text' id='nameToUpdate'>
+        </div>
+        <div class='fieldDiv'>
+            <label for='heightToUpdate'>Height:</label>
+            <input type='number' id='heightToUpdate' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label for='weightToUpdate'>Weight:</label>
+            <input type='number' id='weightToUpdate' min=0 step=0.1>
+        </div>
+        <div class='fieldDiv'>
+            <label>Type:</label>
+            <div class='typeCheckboxDiv' id='updateTypeCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalTypeUpdate' name='Normal'>
+                    <label for='normalTypeUpdate'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireTypeUpdate' name='Fire'>
+                    <label for='fireTypeUpdate'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterTypeUpdate' name='Water'>
+                    <label for='waterTypeUpdate'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassTypeUpdate' name='Grass'>
+                    <label for='grassTypeUpdate'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricTypeUpdate' name='Electric'>
+                    <label for='electricTypeUpdate'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceTypeUpdate' name='Ice'>
+                    <label for='iceTypeUpdate'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingTypeUpdate' name='Fighting'>
+                    <label for='fightingTypeUpdate'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonTypeUpdate' name='Poison'>
+                    <label for='poisonTypeUpdate'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundTypeUpdate' name='Ground'>
+                    <label for='groundTypeUpdate'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingTypeUpdate' name='Flying'>
+                    <label for='flyingTypeUpdate'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicTypeUpdate' name='psychic'>
+                    <label for='psychicTypeUpdate'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugTypeUpdate' name='Bug'>
+                    <label for='bugTypeUpdate'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockTypeUpdate' name='Rock'>
+                    <label for='rockTypeUpdate'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostTypeUpdate' name='Ghost'>
+                    <label for='ghostTypeUpdate'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkTypeUpdate' name='Dark'>
+                    <label for='darkTypeUpdate'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonTypeUpdate' name='Dragon'>
+                    <label for='dragonTypeUpdate'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelTypeUpdate' name='Steel'>
+                    <label for='steelTypeUpdate'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyTypeUpdate' name='Fairy'>
+                    <label for='fairyTypeUpdate'>Fairy</label>
+                </span>
+            </div>
+        </div>
+        <div class='fieldDiv'>
+            <label>Weakness:</label>
+            <div class='typeCheckboxDiv' id='updateWeaknessCheckboxes'>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='normalWeaknessUpdate' name='Normal'>
+                    <label for='normalWeaknessUpdate'>Normal</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fireWeaknessUpdate' name='Fire'>
+                    <label for='fireWeaknessUpdate'>Fire</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='waterWeaknessUpdate' name='Water'>
+                    <label for='waterWeaknessUpdate'>Water</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='grassWeaknessUpdate' name='Grass'>
+                    <label for='grassWeaknessUpdate'>Grass</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='electricWeaknessUpdate' name='Electric'>
+                    <label for='electricWeaknessUpdate'>Electric</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='iceWeaknessUpdate' name='Ice'>
+                    <label for='iceWeaknessUpdate'>Ice</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fightingWeaknessUpdate' name='Fighting'>
+                    <label for='fightingWeaknessUpdate'>Fighting</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='poisonWeaknessUpdate' name='Poison'>
+                    <label for='poisonWeaknessUpdate'>Poison</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='groundWeaknessUpdate' name='Ground'>
+                    <label for='groundWeaknessUpdate'>Ground</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='flyingWeaknessUpdate' name='Flying'>
+                    <label for='flyingWeaknessUpdate'>Flying</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='psychicWeaknessUpdate' name='psychic'>
+                    <label for='psychicWeaknessUpdate'>Psychic</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='bugWeaknessUpdate' name='Bug'>
+                    <label for='bugWeaknessUpdate'>Bug</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='rockWeaknessUpdate' name='Rock'>
+                    <label for='rockWeaknessUpdate'>Rock</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='ghostWeaknessUpdate' name='Ghost'>
+                    <label for='ghostWeaknessUpdate'>Ghost</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='darkWeaknessUpdate' name='Dark'>
+                    <label for='darkWeaknessUpdate'>Dark</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='dragonWeaknessUpdate' name='Dragon'>
+                    <label for='dragonWeaknessUpdate'>Dragon</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='steelWeaknessUpdate' name='Steel'>
+                    <label for='steelWeaknessUpdate'>Steel</label>
+                </span>
+                <span class='typeCheckboxSpan'>
+                    <input type='checkbox' id='fairyWeaknessUpdate' name='Fairy'>
+                    <label for='fairyWeaknessUpdate'>Fairy</label>
+                </span>
+            </div>
+        </div>
+        <input type='submit' id='updateNewPokemonBtn' value='Update Pokémon'>
+    </form>
+    <form id='deleteForm'>
+        <h2>Delete Pokémon by ID</h2>
+        <label for='idToDelete'>ID:</label>
+        <input type='number' id='idToDelete' min=1 value=1>
+        <input type='submit' id='deleteBtn' value='Delete Pokémon'>
+    </form>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+    <title>Pokemon API</title>
+    <h1>Pokemon</h1>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-spacing: 3px;
+		}
+	</style>
+</head>
+<body>
+    <table id="DataTable" style="background-color:#FFF000">
+        <tr>
+            <th>Pokedex ID</th>
+            <th>Name</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Types</th>
+            <th>Weaknesses</th>
+        </tr>
+            <script>
+                //This is where the database data should be read in and loaded into corrosponding arrays.
+				let table = document.getElementById("DataTable");
+                let id = [], name = [], height = [], weight = [], typeCount = [], type = [], weaknessCount = [], weakness = [];
+
+                for(let i = 0; i < databaseData.results.length; i++)
+                {
+					table.innerHTML += '<tr id = "Row' + i + '"></tr>';
+                    id.push(databaseData.results[i]._id);
+                    name.push(databaseData.results[i].name);
+                    height.push(databaseData.results[i].height);
+                    weight.push(databaseData.results[i].weight);
+                    for(let j = 0; j < databaseData.results[i].type.length; j++)
+                    {
+                        typeCount.push(databaseData.results[i].type.length);
+                        type.push(databaseData.results[i].type[j]);
+                    }
+                    for(let j = 0; j < databaseData.results[i].weakness.length; j++)
+                    {
+                        weaknessCount.push(databaseData.results[i].weakness.length);
+                        weakness.push(databaseData.results[i].weakness[j]);
+                    }
+                }
+                
+                let tableRow;
+                for(let i = 0; i < id.length; i++)
+                {
+					tableRow = document.getElementById("Row" + i)
+					tableRow.innerHTML += "<td>" + id[i] + "</td>";
+					tableRow.innerHTML += "<td>" + name[i] + "</td>";
+					tableRow.innerHTML += "<td>" + height[i] + "</td>";
+					tableRow.innerHTML += "<td>" + weight[i] + "</td>";
+					for(let j = 0; j < typeCount[i]; j++)
+					{
+						tableRow.innerHTML += "<td>" + type[j] + "</td>";
+					}
+					for(let j = 0; j < weaknessCount[i]; j++)
+					{
+						tableRow.innerHTML += "<td>" + weakness[j] + "</td>";
+					}
+                }
+				
+				
+				function revealAdd(){
+					let addForm = document.getElementById("addNewPokemon");
+					let editForm = document.getElementById("editOldPokemon");
+					let deleteForm = document.getElementById("deleteOldPokemon");
+					
+					addForm.style.visibility = "visible";
+					editForm.style.visibility = "hidden";
+					deleteForm.style.visibility = "hidden";
+				}
+				
+				function revealEdit(){
+					let addForm = document.getElementById("addNewPokemon");
+					let editForm = document.getElementById("editOldPokemon");
+					let deleteForm = document.getElementById("deleteOldPokemon");
+					
+					addForm.style.visibility = "hidden";
+					editForm.style.visibility = "visible";
+					deleteForm.style.visibility = "hidden";
+				}
+				
+				function revealDelete(){
+					let addForm = document.getElementById("addNewPokemon");
+					let editForm = document.getElementById("editOldPokemon");
+					let deleteForm = document.getElementById("deleteOldPokemon");
+					
+					addForm.style.visibility = "hidden";
+					editForm.style.visibility = "hidden";
+					deleteForm.style.visibility = "visible";
+				}
+            </script>
+    </table>
+	<br><br>
+	<div>
+		<input type="button" value="Add New Pokemon" onclick="revealAdd()">
+		<input type="button" value="Edit existing Pokemon" onclick="revealEdit()">
+		<input type="button" value="Delete existing Pokemon" onclick="revealDelete()">
+	</div>
+	<br><br>
+	
+    <div id="addNewPokemon" hidden>
+		<h2>Add Pokemon</h2>
+		<form action="/api/pokemon/" method="post">
+			<label for="ID">ID</label>
+			<input type = "number" id="ID" required="true" max="999"> 
+			<label for="name">Pokemon Name</label>
+			<input type = "test" id="name" required="true"> <br>
+			<label> Height</label>
+			<input type = "number">
+			<label> Weight</label> 
+			<input type = "number"> <br>
+			<label>Types</label>
+			<input type = "text" multiple max="2">
+			<label>Weaknesses</label>
+			<input type = "text" multiple>
+		</form>
+		<p>Multiple Types and weaknesses can be entered separated by commas</p>
+		
+    </div>
+	
+	<div id="editOldPokemon" hidden>
+		<h2>Edit Pokemon</h2>
+		<form action="/api/pokemon/" method=put">
+			<label for="ID">ID</label>
+			<input type = "number" id="ID" required="true" max="999"> 
+			<label for="name">Pokemon Name</label>
+			<input type = "test" id="name" required="true"> <br>
+			<label> Height</label>
+			<input type = "number">
+			<label> Weight</label> 
+			<input type = "number"> <br>
+			<label>Types</label>
+			<input type = "text" multiple max="2">
+			<label>Weaknesses</label>
+			<input type = "text" multiple>
+		</form>
+		<p>Multiple Types and weaknesses can be entered separated by commas</p>
+    </div>
+	
+	<div id="deleteOldPokemon" hidden>
+		<h2>Delete Pokemon</h2>
+		<form action="/api/pokemon/" method="delete">
+			<label for="ID">ID</label>
+			<input type = "number" id="ID" required="true" max="999"> 
+		</form>
+		<p>Input a valid ID for deletion.</p>
+    </div>
+</body>
