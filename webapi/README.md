@@ -1,18 +1,8 @@
 # Pokémon API
 *COMP 4310 Project 2 - RESTful Web API*  
-*By Anthony Hackworth and Addison Yates*
 
 ## Description
 This project implements a RESTful Web API using MongoDB and Express with Node.js. The API is used to access data about Pokémon characters.
-
-## Contributions
-* **Anthony _(40%)_**
-	* Mocha/Chai test suite
-	* Web page
-* **Addison _(60%)_**
-	* Express app and MongoDB setup
-	* API Middleware
-
 ---
 
 ## Data Stored
