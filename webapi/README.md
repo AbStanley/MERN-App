@@ -1,5 +1,5 @@
 # Pokémon API
-*COMP 4310 Project 2 - RESTful Web API*  
+RESTful Web API*  
 
 ## Description
 This project implements a RESTful Web API using MongoDB and Express with Node.js. The API is used to access data about Pokémon characters.
